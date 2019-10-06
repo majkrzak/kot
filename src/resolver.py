@@ -46,7 +46,7 @@ class Resolver:
 
         self.cache[artifact] = dependencies
 
-        with open(f'{self.local}/{artifact}.jar', 'wb') as data:
+        with open(f'{self.local}/{artifact.replace(":", "_")}.jar', 'wb') as data:
             data.write(self.data(artifact))
 
         return dependencies

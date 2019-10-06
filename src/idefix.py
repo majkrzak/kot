@@ -58,7 +58,7 @@ class Idefix:
             library = etree.SubElement(component_lt, 'library', {'name': lib})
             classes = etree.SubElement(library, 'CLASSES')
             for res in self.libs[lib]:
-                etree.SubElement(classes, 'root', {'url': f'jar://$PROJECT_DIR$/.lib/{res}.jar!/'})
+                etree.SubElement(classes, 'root', {'url': f'jar://$PROJECT_DIR$/.lib/{res.replace(":", "_")}.jar!/'})
             etree.SubElement(library, 'JAVADOC')
             etree.SubElement(library, 'SOURCES')
         return project
