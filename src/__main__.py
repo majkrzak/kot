@@ -1,12 +1,13 @@
 from json import load
-from sys import argv
+from src import args
 from .resolver import Resolver
 from .idefix import Idefix
 
 REMOTE = 'https://jcenter.bintray.com/'
 LOCAL = '.lib/'
 
-with open(argv[1]) as f:
+
+with open(args.structure) as f:
     structure = load(f)
 
 with Resolver(LOCAL, REMOTE) as resolver:
