@@ -8,9 +8,9 @@ setuptools.setup(
             + 'purpose with or without fee is hereby granted, provided that the above '
             + 'copyright notice and this permission notice appear in all copies.',
     packages=[
-        'src',
+        'kot',
     ],
-    package_dir={'src': './src'},
+    package_dir={'kot': './src'},
     install_requires=[
         'requests',
         'lxml'
