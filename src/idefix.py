@@ -31,9 +31,11 @@ class Idefix:
         etree.SubElement(component, 'orderEntry', {'type': 'sourceFolder', 'forTests': 'false'})
         for dep in self.mods[mod]:
             if dep.startswith(':'):
-                etree.SubElement(component, 'orderEntry', {'type': 'module', 'module-name': f'{self.name}.{dep[1:]}'})
+                etree.SubElement(component, 'orderEntry',
+                                 {'type': 'module', 'module-name': f'{self.name}.{dep[1:]}'})
             else:
-                etree.SubElement(component, 'orderEntry', {'type': 'library', 'name': dep, 'level': 'project'})
+                etree.SubElement(component, 'orderEntry',
+                                 {'type': 'library', 'exported': '', 'name': dep, 'level': 'project'})
         return module
 
     def build_project(self):
