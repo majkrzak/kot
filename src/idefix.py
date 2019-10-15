@@ -30,9 +30,10 @@ class Idefix:
         etree.SubElement(component, 'orderEntry', {'type': 'inheritedJdk'})
         etree.SubElement(component, 'orderEntry', {'type': 'sourceFolder', 'forTests': 'false'})
         for dep in self.mods[mod]:
-            etree.SubElement(component, 'orderEntry', {'type': 'module', 'module-name': f'{self.name}.{dep}'})
-        for lib in self.libs.keys():
-            etree.SubElement(component, 'orderEntry', {'type': 'library', 'name': lib, 'level': 'project'})
+            if dep.startswith(':'):
+                etree.SubElement(component, 'orderEntry', {'type': 'module', 'module-name': f'{self.name}.{dep[1:]}'})
+            else:
+                etree.SubElement(component, 'orderEntry', {'type': 'library', 'name': dep, 'level': 'project'})
         return module
 
     def build_project(self):

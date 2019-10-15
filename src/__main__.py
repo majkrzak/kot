@@ -1,7 +1,9 @@
+from functools import reduce
 from json import load
 from sys import argv
-from .resolver import Resolver
+
 from .idefix import Idefix
+from .resolver import Resolver
 
 REMOTE = 'https://jcenter.bintray.com/'
 LOCAL = '.lib/'
@@ -14,7 +16,9 @@ with Resolver(LOCAL, REMOTE) as resolver:
         structure['name'],
         {
             artifact: resolver(artifact)
-            for artifact in structure['dependencies']
+            for artifact in
+            filter(lambda x: not x.startswith(':'),
+                   reduce(lambda x, y: set(x) | set(y), structure['modules'].values(), set()))
         },
         structure['modules']
     )()
