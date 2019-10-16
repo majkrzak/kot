@@ -40,8 +40,7 @@ class Resolver:
             return self.cache[artifact]
 
         dependencies = reduce(lambda x, y: x | y, [
-            self(dependency)
-            for dependency in self.dependencies(artifact)
+            self(dependency) for dependency in self.dependencies(artifact)
         ], {artifact})
 
         self.cache[artifact] = dependencies
@@ -52,12 +51,21 @@ class Resolver:
         return dependencies
 
     def data(self, artifact):
+        '''
+        Returns content from Java class file
+        '''
         return get(f'{self.remote}/{to_mv(artifact)}.jar').content
 
     def metadata(self, artifact):
+        '''
+        Return information about the project, and configuration details.
+        '''
         return get(f'{self.remote}/{to_mv(artifact)}.pom').content
 
     def dependencies(self, artifact):
+        '''
+        Returns generator that iterates over dependencies for passed artifact
+        '''
         ns = {"namespaces": {"n": "http://maven.apache.org/POM/4.0.0"}}
         tree = etree.fromstring(self.metadata(artifact))
         for sub in tree.xpath('''/n:project/n:dependencies/n:dependency[contains(n:scope/text(),'compile')]''', **ns):
