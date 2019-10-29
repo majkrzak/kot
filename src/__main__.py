@@ -26,4 +26,6 @@ if len(argv[2]) < 3:
             structure['modules']
         )()
 elif argv[2] == 'build':
-    Builder(BUILD)()
+    builder = Builder(BUILD)
+    for module in structure['modules']:
+        builder(module)
