@@ -13,7 +13,7 @@ BUILD = '.out/'
 with open(argv[1]) as f:
     structure = load(f)
 
-if len(argv[2]) < 3:
+if len(argv) < 3:
     with Resolver(LOCAL, REMOTE) as resolver:
         Idefix(
             structure['name'],
@@ -27,5 +27,5 @@ if len(argv[2]) < 3:
         )()
 elif argv[2] == 'build':
     builder = Builder(BUILD)
-    for module in structure['modules']:
-        builder(module)
+    builder(structure['modules'].keys())
+
